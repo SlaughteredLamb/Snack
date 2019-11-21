@@ -1,0 +1,81 @@
+/** 
+Author: Dalong Chen
+Date: August 12th, 2019
+Content: This method defines the snake, construtor, push ahead, remove tail.etc.
+ */
+
+class Snake {
+  
+  //This defines the head of the snake
+  field SnakeBody head; 
+  // This defines the tail of the snake
+  field SnakeBody tail; 
+
+  //Constructor
+  constructor Snake new(SnakeBody newSnakeHead) {
+    
+    let head = newSnakeHead;
+    let tail = newSnakeHead;
+
+    return this;
+
+  }
+
+  // get method
+  method SnakeBody getHead() {
+    return head;
+  }
+
+  // get method
+  method SnakeBody getTail() {
+    return tail;
+  }
+
+  /** If a food is eaten, this method will
+  add the food into the front of the snake */
+    method void pushHead(SnakeBody newSnakeHead) {
+
+    do newSnakeHead.draw();
+    do newSnakeHead.setNext(head);
+    do head.setPrev(newSnakeHead);
+
+    let head = newSnakeHead;
+
+    return;
+  }
+
+  /** When snake moves, this method will 
+  erase the last part(tail) of the snake body */
+  method void eraseTail() {
+
+    var SnakeBody oldSnakeTail;
+    var SnakeBody newSnakeTail;
+
+    let oldSnakeTail = tail;
+    do tail.erase();
+
+    let newSnakeTail = tail.getPrev();
+    do newSnakeTail.setNext(null);
+
+    let tail = newSnakeTail;
+    do oldSnakeTail.dispose();
+
+    return;
+  }
+
+    /** this method will draw 
+  the whole snake body */
+  method void drawWholeBody() {
+
+    var SnakeBody ptr;
+
+    let ptr = head;
+    while (~(ptr = null)) {
+      do ptr.draw();
+      let ptr = ptr.getNext();
+    }
+
+    return;
+  }
+
+}
